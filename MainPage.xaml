@@ -4,47 +4,192 @@
              BackgroundColor="{DynamicResource SecondaryColor}">
 
     <ScrollView>
-        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,*"
+        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,*"
               Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
 
             <Label 
-                Text="Hello, people!"
+                Text="Fifteen Puzzle"
                 Grid.Row="0"
+                TextColor="Red"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
 
-            <Label 
-                Text="Welcome to .NET Multi-platform App UI"
+            <Button
+                Text="Scramble!"
                 Grid.Row="1"
-                SemanticProperties.HeadingLevel="Level1"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                Clicked="OnScrambleButtonClicked"
                 FontSize="18"
-                HorizontalOptions="Center" />
+                FontAttributes="Bold"
+                HorizontalOptions="Center"/>
 
             <Label 
-                Text="Current count: 0"
+                Text="Move count: 0"
                 Grid.Row="2"
                 FontSize="18"
-                FontAttributes="Bold"
-                x:Name="CounterLabel"
+                x:Name="MoveCountLabel"
                 HorizontalOptions="Center" />
 
-            <Button 
-                Text="Click me"
-                FontAttributes="Bold"
-                Grid.Row="3"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+            <Border Grid.Row="3"
+                    HorizontalOptions="Center"
+                    Background="Grey"
+                    Padding="5">
+                <Grid RowSpacing="5" RowDefinitions="Auto,Auto,Auto,Auto"
+                      ColumnSpacing="5" ColumnDefinitions="Auto,Auto,Auto,Auto">
+                
+                    <!-- First row of buttons. -->
+                    <Button
+                        Text="1"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button00"/>
+                    <Button
+                        Text="2"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button01"/>
+                    <Button
+                        Text="3"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button02"/>
+                    <Button
+                        Text="4"
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button03"/>
+                
+                    <!-- Second row of buttons. -->
+                    <Button
+                        Text="5"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button10"/>
+                    <Button
+                        Text="6"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button11"/>
+                    <Button
+                        Text="7"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button12"/>
+                    <Button
+                        Text="8"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button13"/>
 
-            <Image Grid.Row="4"
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                WidthRequest="250"
-                HeightRequest="310"
-                HorizontalOptions="Center" />
+                    <!-- Third row of buttons. -->
+                    <Button
+                        Text="9"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button20"/>
+                    <Button
+                        Text="10"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button21"/>
+                    <Button
+                        Text="11"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button22"/>
+                    <Button
+                        Text="12"
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button23"/>
 
+                    <!-- Fourth row of buttons. -->
+                    <Button
+                        Text="13"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button30"/>
+                    <Button
+                        Text="14"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button31"/>
+                    <Button
+                        Text="15"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button32"/>
+                    <Button
+                        Text=""
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        x:Name="Button33"/>
+                </Grid>
+            </Border>
         </Grid>
     </ScrollView>
 </ContentPage>
