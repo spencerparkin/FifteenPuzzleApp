@@ -40,6 +40,7 @@
                     <!-- First row of buttons. -->
                     <Button
                         Text="1"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="0"
                         FontSize="14"
@@ -49,6 +50,7 @@
                         x:Name="Button00"/>
                     <Button
                         Text="2"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="1"
                         FontSize="14"
@@ -58,6 +60,7 @@
                         x:Name="Button01"/>
                     <Button
                         Text="3"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="2"
                         FontSize="14"
@@ -67,6 +70,7 @@
                         x:Name="Button02"/>
                     <Button
                         Text="4"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="3"
                         FontSize="14"
@@ -78,6 +82,7 @@
                     <!-- Second row of buttons. -->
                     <Button
                         Text="5"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="0"
                         FontSize="14"
@@ -87,6 +92,7 @@
                         x:Name="Button10"/>
                     <Button
                         Text="6"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="1"
                         FontSize="14"
@@ -96,6 +102,7 @@
                         x:Name="Button11"/>
                     <Button
                         Text="7"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="2"
                         FontSize="14"
@@ -105,6 +112,7 @@
                         x:Name="Button12"/>
                     <Button
                         Text="8"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="3"
                         FontSize="14"
@@ -116,6 +124,7 @@
                     <!-- Third row of buttons. -->
                     <Button
                         Text="9"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="0"
                         FontSize="14"
@@ -125,6 +134,7 @@
                         x:Name="Button20"/>
                     <Button
                         Text="10"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="1"
                         FontSize="14"
@@ -134,6 +144,7 @@
                         x:Name="Button21"/>
                     <Button
                         Text="11"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="2"
                         FontSize="14"
@@ -143,6 +154,7 @@
                         x:Name="Button22"/>
                     <Button
                         Text="12"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="3"
                         FontSize="14"
@@ -154,6 +166,7 @@
                     <!-- Fourth row of buttons. -->
                     <Button
                         Text="13"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="0"
                         FontSize="14"
@@ -163,6 +176,7 @@
                         x:Name="Button30"/>
                     <Button
                         Text="14"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="1"
                         FontSize="14"
@@ -172,6 +186,7 @@
                         x:Name="Button31"/>
                     <Button
                         Text="15"
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="2"
                         FontSize="14"
@@ -181,6 +196,7 @@
                         x:Name="Button32"/>
                     <Button
                         Text=""
+                        Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="3"
                         FontSize="14"

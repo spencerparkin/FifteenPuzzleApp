@@ -47,6 +47,11 @@ namespace FifteenPuzzle
 		{
 			this.UpdateMoveCount(0);
 
+			// TODO: It is not immediately obvious to me if every permutation
+			//       of the 16 locations results in a solvable puzzle.  The only
+			//       way, for now, to be sure that a scramble is solvable is to
+			//       scramble the puzzle under the constraints of the puzzle.
+
 			int[] array = new int[16];
 			for(int i = 0; i < array.Length; i++)
 				array[i] = i;
@@ -69,6 +74,49 @@ namespace FifteenPuzzle
 				Button button = this.buttonMatrix[row, col];
 				button.Text = (array[i] == 0) ? "" : $"{array[i]}";
 			}
+		}
+
+		private bool FindButtonLocation(Button button, out int row, out int col)
+		{
+			for (row = 0; row < 4; row++)
+				for (col = 0; col < 4; col++)
+					if (this.buttonMatrix[row, col] == button)
+						return true;
+			row = -1;
+			col = -1;
+			return false;
+		}
+
+		private void MakeMove(int row, int col, int rowDelta, int colDelta)
+		{
+			Button buttonA = this.buttonMatrix[row, col];
+			Button buttonB = this.buttonMatrix[row + rowDelta, col + colDelta];
+
+			string label = buttonA.Text;
+			buttonA.Text = buttonB.Text;
+			buttonB.Text = label;
+
+			this.UpdateMoveCount(this.moveCount + 1);
+		}
+
+		private void OnPuzzleButtonClicked(object sender, EventArgs e)
+		{
+			Button button = sender as Button;
+			if(button == null)
+				return;
+
+			int row = -1, col = -1;
+			if(!this.FindButtonLocation(button, out row, out col))
+				return;
+
+			if(row > 0 && this.buttonMatrix[row - 1, col].Text.Length == 0)
+				this.MakeMove(row, col, -1, 0);
+			else if(row < 3 && this.buttonMatrix[row + 1, col].Text.Length == 0)
+				this.MakeMove(row, col, 1, 0);
+			else if(col > 0 && this.buttonMatrix[row, col - 1].Text.Length == 0)
+				this.MakeMove(row, col, 0, -1);
+			else if(col < 3 && this.buttonMatrix[row, col + 1].Text.Length == 0)
+				this.MakeMove(row, col, 0, 1);
 		}
 	}
 }
