@@ -45,42 +45,36 @@ namespace FifteenPuzzle
 
 		private void OnScrambleButtonClicked(object sender, EventArgs e)
 		{
-			this.UpdateMoveCount(0);
-
-			// TODO: It is not immediately obvious to me if every permutation
-			//       of the 16 locations results in a solvable puzzle.  The only
-			//       way, for now, to be sure that a scramble is solvable is to
-			//       scramble the puzzle under the constraints of the puzzle.
-
-			int[] array = new int[16];
-			for(int i = 0; i < array.Length; i++)
-				array[i] = i;
-
-			for(int i = 0; i < array.Length - 1; i++)
+			int scrambleCount = 150;
+			for(int i = 0; i < scrambleCount; i++)
 			{
-				int j = this.random.Next(i, array.Length);
-				if(i != j)
+				int row = -1, col = -1;
+				this.FindButtonLocation("", out row, out col);
+
+				int rowDelta = 0, colDelta = 0;
+				do
 				{
-					array[i] ^= array[j];
-					array[j] ^= array[i];
-					array[i] ^= array[j];
+					do
+					{
+						rowDelta = this.random.Next(-1, 2);
+						colDelta = this.random.Next(-1, 2);
+					}
+					while(!(rowDelta == 0 && colDelta != 0) && !(rowDelta != 0 && colDelta == 0));
 				}
+				while(row + rowDelta < 0 || row + rowDelta >= 4 || col + colDelta < 0 || col + colDelta >= 4);
+
+				Button button = this.buttonMatrix[row + rowDelta, col + colDelta];
+				this.MakeMove(button);
 			}
 
-			for(int i = 0; i < array.Length; i++)
-			{
-				int row = (int)Math.Floor((float)i / 4.0f);
-				int col = i % 4;
-				Button button = this.buttonMatrix[row, col];
-				button.Text = (array[i] == 0) ? "" : $"{array[i]}";
-			}
+			this.UpdateMoveCount(0);
 		}
 
-		private bool FindButtonLocation(Button button, out int row, out int col)
+		private bool FindButtonLocation(string label, out int row, out int col)
 		{
 			for (row = 0; row < 4; row++)
 				for (col = 0; col < 4; col++)
-					if (this.buttonMatrix[row, col] == button)
+					if (this.buttonMatrix[row, col].Text == label)
 						return true;
 			row = -1;
 			col = -1;
@@ -99,24 +93,28 @@ namespace FifteenPuzzle
 			this.UpdateMoveCount(this.moveCount + 1);
 		}
 
-		private void OnPuzzleButtonClicked(object sender, EventArgs e)
+		private void MakeMove(Button button)
 		{
-			Button button = sender as Button;
-			if(button == null)
+			if (button == null)
 				return;
 
 			int row = -1, col = -1;
-			if(!this.FindButtonLocation(button, out row, out col))
+			if (!this.FindButtonLocation(button.Text, out row, out col))
 				return;
 
-			if(row > 0 && this.buttonMatrix[row - 1, col].Text.Length == 0)
+			if (row > 0 && this.buttonMatrix[row - 1, col].Text.Length == 0)
 				this.MakeMove(row, col, -1, 0);
-			else if(row < 3 && this.buttonMatrix[row + 1, col].Text.Length == 0)
+			else if (row < 3 && this.buttonMatrix[row + 1, col].Text.Length == 0)
 				this.MakeMove(row, col, 1, 0);
-			else if(col > 0 && this.buttonMatrix[row, col - 1].Text.Length == 0)
+			else if (col > 0 && this.buttonMatrix[row, col - 1].Text.Length == 0)
 				this.MakeMove(row, col, 0, -1);
-			else if(col < 3 && this.buttonMatrix[row, col + 1].Text.Length == 0)
+			else if (col < 3 && this.buttonMatrix[row, col + 1].Text.Length == 0)
 				this.MakeMove(row, col, 0, 1);
+		}
+
+		private void OnPuzzleButtonClicked(object sender, EventArgs e)
+		{
+			this.MakeMove(sender as Button);
 		}
 	}
 }
