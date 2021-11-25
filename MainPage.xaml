@@ -27,7 +27,7 @@
                 Text="Move count: 0"
                 Grid.Row="2"
                 FontSize="18"
-                x:Name="MoveCountLabel"
+                x:Name="moveCountLabel"
                 HorizontalOptions="Center" />
 
             <Border Grid.Row="3"
