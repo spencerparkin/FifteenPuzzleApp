@@ -4,33 +4,47 @@
              BackgroundColor="{DynamicResource SecondaryColor}">
 
     <ScrollView>
-        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,*,Auto"
+        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
               Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
-
-            <Label 
-                Text="Fifteen Puzzle"
-                Grid.Row="0"
-                TextColor="Red"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Button
-                Text="Scramble!"
-                Grid.Row="1"
-                Clicked="OnScrambleButtonClicked"
-                FontSize="18"
-                FontAttributes="Bold"
-                HorizontalOptions="Center"/>
-
+            <Label Text="Fifteen Puzzle"
+                    Grid.Row="0"
+                    TextColor="Red"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="32"
+                    HorizontalOptions="Center" />
+            <StackLayout Grid.Row="1"
+                         Orientation="Vertical"
+                         Spacing="5"
+                         HorizontalOptions="CenterAndExpand">
+                <Button Text="Scramble!"
+                        Clicked="OnScrambleButtonClicked"
+                        FontSize="14"
+                        FontAttributes="Bold"/>
+                <Button Text="Reset!"
+                        Clicked="OnResetButtonClicked"
+                        FontAttributes="Bold"/>
+            </StackLayout>
+            <StackLayout Grid.Row="2"
+                         Orientation="Horizontal"
+                         Spacing="5"
+                         HorizontalOptions="Center">
+                <Label Text="Auto-Solve"
+                       FontSize="10"
+                       TextColor="Black"/>
+                <Switch IsToggled="false"
+                    x:Name="solverSwitch"
+                    Toggled="OnSolverSwitchClicked"
+                    ThumbColor="Black"
+                    OnColor="Green"/>
+            </StackLayout>
             <Label 
                 Text="Move count: 0"
-                Grid.Row="2"
+                Grid.Row="3"
                 FontSize="18"
                 x:Name="moveCountLabel"
                 HorizontalOptions="Center" />
 
-            <Border Grid.Row="3"
+            <Border Grid.Row="4"
                     HorizontalOptions="Center"
                     Background="Grey"
                     Padding="5">
@@ -209,7 +223,7 @@
             <Button
                 Text="Options..."
                 Clicked="OnOptionsButtonClicked"
-                Grid.Row="4"
+                Grid.Row="5"
                 FontSize="14"
                 HorizontalOptions="Center"/>
         </Grid>

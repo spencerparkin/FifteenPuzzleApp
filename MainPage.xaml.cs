@@ -9,6 +9,7 @@ namespace FifteenPuzzle
 		private int moveCount = 0;
 		private Button[,] buttonMatrix = new Button[4, 4];
 		private Random random = null;
+		private Solver solver = null;
 
 		public MainPage()
 		{
@@ -35,6 +36,12 @@ namespace FifteenPuzzle
 			this.buttonMatrix[3, 1] = this.Button31;
 			this.buttonMatrix[3, 2] = this.Button32;
 			this.buttonMatrix[3, 3] = this.Button33;
+
+			Device.StartTimer(TimeSpan.FromSeconds(1.0), () => {
+				if(this.solver != null)
+					this.solver.Run(this);
+				return true;
+			});
 		}
 
 		private void UpdateMoveCount(int newMoveCount)
@@ -88,7 +95,7 @@ namespace FifteenPuzzle
 			return false;
 		}
 
-		private void MakeMove(int row, int col, int rowDelta, int colDelta)
+		private bool MakeMove(int row, int col, int rowDelta, int colDelta)
 		{
 			Button buttonA = this.buttonMatrix[row, col];
 			Button buttonB = this.buttonMatrix[row + rowDelta, col + colDelta];
@@ -97,31 +104,58 @@ namespace FifteenPuzzle
 			buttonA.Text = buttonB.Text;
 			buttonB.Text = label;
 
-			this.UpdateMoveCount(this.moveCount + 1);
+			return true;
 		}
 
-		private void MakeMove(Button button)
+		public bool MakeMove(int row, int col)
+		{
+			if (row > 0 && this.buttonMatrix[row - 1, col].Text.Length == 0)
+				return this.MakeMove(row, col, -1, 0);
+			else if (row < 3 && this.buttonMatrix[row + 1, col].Text.Length == 0)
+				return this.MakeMove(row, col, 1, 0);
+			else if (col > 0 && this.buttonMatrix[row, col - 1].Text.Length == 0)
+				return this.MakeMove(row, col, 0, -1);
+			else if (col < 3 && this.buttonMatrix[row, col + 1].Text.Length == 0)
+				return this.MakeMove(row, col, 0, 1);
+			return false;
+		}
+
+		private bool MakeMove(Button button)
 		{
 			if (button == null)
-				return;
+				return false;
 
 			int row = -1, col = -1;
 			if (!this.FindButtonLocation(button.Text, out row, out col))
-				return;
+				return false;
 
-			if (row > 0 && this.buttonMatrix[row - 1, col].Text.Length == 0)
-				this.MakeMove(row, col, -1, 0);
-			else if (row < 3 && this.buttonMatrix[row + 1, col].Text.Length == 0)
-				this.MakeMove(row, col, 1, 0);
-			else if (col > 0 && this.buttonMatrix[row, col - 1].Text.Length == 0)
-				this.MakeMove(row, col, 0, -1);
-			else if (col < 3 && this.buttonMatrix[row, col + 1].Text.Length == 0)
-				this.MakeMove(row, col, 0, 1);
+			return this.MakeMove(row, col);
 		}
 
 		private void OnPuzzleButtonClicked(object sender, EventArgs e)
 		{
-			this.MakeMove(sender as Button);
+			if(this.solver != null)
+				return;
+
+			if (this.MakeMove(sender as Button))
+				this.UpdateMoveCount(this.moveCount + 1);
+		}
+
+		private void OnResetButtonClicked(object sender, EventArgs e)
+		{
+			int k = 1;
+			for(int i = 0; i < 4; i++)
+				for(int j = 0; j < 4; j++)
+					this.buttonMatrix[i, j].Text = (k == 16) ? "" : $"{k++}";
+			this.UpdateMoveCount(0);
+		}
+
+		private void OnSolverSwitchClicked(object sender, EventArgs e)
+		{
+			if(this.solverSwitch.IsEnabled)
+				this.solver = new Solver();
+			else
+				this.solver = null;
 		}
 	}
 }
