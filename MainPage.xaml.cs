@@ -11,11 +11,19 @@ namespace FifteenPuzzle
 		private Random random = null;
 		private Solver solver = null;
 
+		public int GetPuzzleValue(int row, int col)
+		{
+			Button button = this.buttonMatrix[row, col];
+			string label = button.Text;
+			int value = (label == "") ? 0 : int.Parse(label);
+			return value;
+		}
+
 		public MainPage()
 		{
 			InitializeComponent();
 
-			this.random = new Random(DateTime.Now.Second * DateTime.Now.Day);
+			this.random = new Random(0); //DateTime.Now.Second * DateTime.Now.Day);
 
 			this.buttonMatrix[0, 0] = this.Button00;
 			this.buttonMatrix[0, 1] = this.Button01;
@@ -59,6 +67,9 @@ namespace FifteenPuzzle
 
 		private void OnScrambleButtonClicked(object sender, EventArgs e)
 		{
+			if(this.solver != null)
+				return;
+
 			int scrambleCount = 150;
 			for(int i = 0; i < scrambleCount; i++)
 			{
@@ -143,6 +154,9 @@ namespace FifteenPuzzle
 
 		private void OnResetButtonClicked(object sender, EventArgs e)
 		{
+			if(this.solver != null)
+				return;
+			
 			int k = 1;
 			for(int i = 0; i < 4; i++)
 				for(int j = 0; j < 4; j++)
@@ -152,10 +166,13 @@ namespace FifteenPuzzle
 
 		private void OnSolverSwitchClicked(object sender, EventArgs e)
 		{
-			if(this.solverSwitch.IsEnabled)
+			if(this.solverSwitch.IsToggled)
 				this.solver = new Solver();
 			else
 				this.solver = null;
+
+			this.scrambleButton.IsEnabled = (this.solver == null);
+			this.resetButton.IsEnabled = (this.solver == null);
 		}
 	}
 }

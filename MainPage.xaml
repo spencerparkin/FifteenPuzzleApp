@@ -17,10 +17,12 @@
                          Spacing="5"
                          HorizontalOptions="CenterAndExpand">
                 <Button Text="Scramble!"
+                        x:Name="scrambleButton"
                         Clicked="OnScrambleButtonClicked"
                         FontSize="14"
                         FontAttributes="Bold"/>
                 <Button Text="Reset!"
+                        x:Name="resetButton"
                         Clicked="OnResetButtonClicked"
                         FontAttributes="Bold"/>
             </StackLayout>
