@@ -43,6 +43,13 @@ namespace FifteenPuzzle
 			this.moveCountLabel.Text = $"Move count: {this.moveCount}";
 		}
 
+		private async void OnOptionsButtonClicked(object sender, EventArgs e)
+		{
+			SettingsPage settingsPage = new SettingsPage();
+			var task = this.Navigation.PushModalAsync(settingsPage);
+			await task;
+		}
+
 		private void OnScrambleButtonClicked(object sender, EventArgs e)
 		{
 			int scrambleCount = 150;

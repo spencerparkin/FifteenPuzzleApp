@@ -4,7 +4,7 @@
              BackgroundColor="{DynamicResource SecondaryColor}">
 
     <ScrollView>
-        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,*"
+        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,*,Auto"
               Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
 
             <Label 
@@ -206,6 +206,12 @@
                         x:Name="Button33"/>
                 </Grid>
             </Border>
+            <Button
+                Text="Options..."
+                Clicked="OnOptionsButtonClicked"
+                Grid.Row="4"
+                FontSize="14"
+                HorizontalOptions="Center"/>
         </Grid>
     </ScrollView>
 </ContentPage>
