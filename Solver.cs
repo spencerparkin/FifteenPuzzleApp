@@ -71,12 +71,12 @@ namespace FifteenPuzzle
                         return;
         }
 
-        private void MarkUnsolved(Element[,] puzzleMatrix, int minValue, int maxValue)
+        private void MarkSolved(Element[,] puzzleMatrix, int minValue, int maxValue, bool solved)
         {
             for(int i = 0; i < 4; i++)
                 for(int j = 0; j < 4; j++)
                     if(minValue <= puzzleMatrix[i, j].value && puzzleMatrix[i, j].value <= maxValue)
-                        puzzleMatrix[i, j].solved = false;
+                        puzzleMatrix[i, j].solved = solved;
         }
 
         private void PrepOrMoveTileCloserToTarget(Element[,] puzzleMatrix, Location tileLocation, Location ultimateLocation)
@@ -121,28 +121,28 @@ namespace FifteenPuzzle
 
             if(puzzleMatrix[0, 0].value != 1)
             {
-                this.MarkUnsolved(puzzleMatrix, 2, 15);
+                this.MarkSolved(puzzleMatrix, 2, 15, false);
                 Location oneLocation;
                 this.LocateElement(puzzleMatrix, 1, out oneLocation);
                 this.PrepOrMoveTileCloserToTarget(puzzleMatrix, oneLocation, new Location(0, 0));
             }
             else if(puzzleMatrix[0, 1].value != 2)
             {
-                this.MarkUnsolved(puzzleMatrix, 3, 15);
+                this.MarkSolved(puzzleMatrix, 3, 15, false);
                 Location twoLocation;
                 this.LocateElement(puzzleMatrix, 2, out twoLocation);
                 this.PrepOrMoveTileCloserToTarget(puzzleMatrix, twoLocation, new Location(0, 1));
             }
             else if (puzzleMatrix[0, 2].value != 3)
             {
-                this.MarkUnsolved(puzzleMatrix, 4, 15);
+                this.MarkSolved(puzzleMatrix, 4, 15, false);
                 Location threeLocation;
                 this.LocateElement(puzzleMatrix, 3, out threeLocation);
                 this.PrepOrMoveTileCloserToTarget(puzzleMatrix, threeLocation, new Location(0, 2));
             }
             else if (puzzleMatrix[0, 3].value != 4)
             {
-                this.MarkUnsolved(puzzleMatrix, 5, 15);
+                this.MarkSolved(puzzleMatrix, 5, 15, false);
 
                 if(puzzleMatrix[1, 2].value != 4)
                 {
@@ -177,28 +177,28 @@ namespace FifteenPuzzle
             }
             else if(puzzleMatrix[1, 0].value != 5)
             {
-                this.MarkUnsolved(puzzleMatrix, 6, 15);
+                this.MarkSolved(puzzleMatrix, 6, 15, false);
                 Location fiveLocation;
                 this.LocateElement(puzzleMatrix, 5, out fiveLocation);
                 this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fiveLocation, new Location(1, 0));
             }
             else if(puzzleMatrix[1, 1].value != 6)
             {
-                this.MarkUnsolved(puzzleMatrix, 7, 15);
+                this.MarkSolved(puzzleMatrix, 7, 15, false);
                 Location sixLocation;
                 this.LocateElement(puzzleMatrix, 6, out sixLocation);
                 this.PrepOrMoveTileCloserToTarget(puzzleMatrix, sixLocation, new Location(1, 1));
             }
             else if(puzzleMatrix[1, 2].value != 7)
             {
-                this.MarkUnsolved(puzzleMatrix, 8, 15);
+                this.MarkSolved(puzzleMatrix, 8, 15, false);
                 Location sevenLocation;
                 this.LocateElement(puzzleMatrix, 7, out sevenLocation);
                 this.PrepOrMoveTileCloserToTarget(puzzleMatrix, sevenLocation, new Location(1, 2));
             }
             else if(puzzleMatrix[1, 3].value != 8)
             {
-                this.MarkUnsolved(puzzleMatrix, 9, 15);
+                this.MarkSolved(puzzleMatrix, 9, 15, false);
 
                 if (puzzleMatrix[2, 2].value != 8)
                 {
@@ -231,6 +231,104 @@ namespace FifteenPuzzle
                     this.moveList.Add(new Location(2, 0));
                 }
             }
+            else if(puzzleMatrix[2, 0].value != 9)
+            {
+                this.MarkSolved(puzzleMatrix, 10, 15, false);
+                Location nineLocation;
+                this.LocateElement(puzzleMatrix, 9, out nineLocation);
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, nineLocation, new Location(2, 0));
+            }
+            else if(puzzleMatrix[3, 0].value != 13)
+            {
+                this.MarkSolved(puzzleMatrix, 10, 12, false);
+                this.MarkSolved(puzzleMatrix, 14, 15, false);
+
+                if(puzzleMatrix[3, 2].value != 13)
+                {
+                    Location thirteenLocation;
+                    this.LocateElement(puzzleMatrix, 13, out thirteenLocation);
+                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, thirteenLocation, new Location(3, 2));
+                }
+                else if(puzzleMatrix[2, 1].value != 0)
+                {
+                    Location zeroLocation;
+                    this.LocateElement(puzzleMatrix, 0, out zeroLocation);
+                    this.FindPath(puzzleMatrix, zeroLocation, new Location(2, 1), new Location(3, 2));
+                }
+                else
+                {
+                    // This is truncated commutator.  The desired result is found before finishing the commutator.
+
+                    this.moveList.Add(new Location(3, 1));
+                    this.moveList.Add(new Location(3, 0));
+                    this.moveList.Add(new Location(2, 0));
+                    this.moveList.Add(new Location(2, 1));
+
+                    this.moveList.Add(new Location(3, 1));
+                    this.moveList.Add(new Location(3, 2));
+                    this.moveList.Add(new Location(2, 2));
+                    this.moveList.Add(new Location(2, 1));
+
+                    this.moveList.Add(new Location(2, 0));
+                    this.moveList.Add(new Location(3, 0));
+                    this.moveList.Add(new Location(3, 1));
+                }
+            }
+            else if(puzzleMatrix[2, 1].value != 10)
+            {
+                this.MarkSolved(puzzleMatrix, 11, 12, false);
+                this.MarkSolved(puzzleMatrix, 14, 15, false);
+                Location tenLocation;
+                this.LocateElement(puzzleMatrix, 10, out tenLocation);
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, tenLocation, new Location(2, 1));
+            }
+            else if(puzzleMatrix[3, 1].value != 14)
+            {
+                this.MarkSolved(puzzleMatrix, 11, 12, false);
+                this.MarkSolved(puzzleMatrix, 15, 15, false);
+
+                if(puzzleMatrix[3, 3].value != 14)
+                {
+                    Location fourteenLocation;
+                    this.LocateElement(puzzleMatrix, 14, out fourteenLocation);
+                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fourteenLocation, new Location(3, 3));
+                }
+                else if(puzzleMatrix[2, 2].value != 0)
+                {
+                    Location zeroLocation;
+                    this.LocateElement(puzzleMatrix, 0, out zeroLocation);
+                    this.FindPath(puzzleMatrix, zeroLocation, new Location(2, 2), new Location(3, 3));
+                }
+                else
+                {
+                    // This is also a truncated commutator.
+
+                    this.moveList.Add(new Location(3, 2));
+                    this.moveList.Add(new Location(3, 1));
+                    this.moveList.Add(new Location(2, 1));
+                    this.moveList.Add(new Location(2, 2));
+
+                    this.moveList.Add(new Location(3, 2));
+                    this.moveList.Add(new Location(3, 3));
+                    this.moveList.Add(new Location(2, 3));
+                    this.moveList.Add(new Location(2, 2));
+
+                    this.moveList.Add(new Location(2, 1));
+                    this.moveList.Add(new Location(3, 1));
+                    this.moveList.Add(new Location(3, 2));
+                }
+            }
+            else if(puzzleMatrix[2, 2].value != 11 || puzzleMatrix[2, 3].value != 12 || puzzleMatrix[3, 2].value != 15 || puzzleMatrix[3, 3].value != 0)
+            {
+                if(puzzleMatrix[2, 2].value == 0)
+                    this.moveList.Add(new Location(2, 3));
+                else if(puzzleMatrix[2, 3].value == 0)
+                    this.moveList.Add(new Location(3, 3));
+                else if(puzzleMatrix[3, 3].value == 0)
+                    this.moveList.Add(new Location(3, 2));
+                else if(puzzleMatrix[3, 2].value == 0)
+                    this.moveList.Add(new Location(2, 2));
+            }
         }
 
         private bool FindPath(Element[,] puzzleMatrix, Location sourceLocation, Location destinationLocation, Location doNotDisturbLocation)
@@ -241,8 +339,9 @@ namespace FifteenPuzzle
 
             puzzleMatrix[doNotDisturbLocation.row, doNotDisturbLocation.col].solved = true;
 
-            // Note that this does not necessarily find the shortest path.
-            // It may be worth revisiting this code so that it finds the shortest path.
+            // TODO: Note that this does not necessarily find the shortest path.
+            //       It may be worth revisiting this code so that it finds the shortest path.
+            //       In fact, it must be revisited, because it's an obvious innefficiency.
             this.moveList.Clear();
             this.FindPathRecursive(puzzleMatrix, sourceLocation, destinationLocation);
             if(this.moveList.Count > 0)
