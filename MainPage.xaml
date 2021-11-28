@@ -8,31 +8,35 @@
               Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
             <Label Text="Fifteen Puzzle"
                     Grid.Row="0"
-                    TextColor="Red"
+                    TextColor="Black"
                     SemanticProperties.HeadingLevel="Level1"
                     FontSize="32"
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center"/>
             <StackLayout Grid.Row="1"
-                         Orientation="Vertical"
+                         Orientation="Horizontal"
                          Spacing="5"
                          HorizontalOptions="CenterAndExpand">
                 <Button Text="Scramble!"
                         x:Name="scrambleButton"
                         Clicked="OnScrambleButtonClicked"
                         FontSize="14"
+                        BackgroundColor="Blue"
                         FontAttributes="Bold"/>
                 <Button Text="Reset!"
                         x:Name="resetButton"
                         Clicked="OnResetButtonClicked"
+                        FontSize="14"
+                        BackgroundColor="Blue"
                         FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout Grid.Row="2"
                          Orientation="Horizontal"
                          Spacing="5"
                          HorizontalOptions="Center">
-                <Label Text="Auto-Solve"
-                       FontSize="10"
-                       TextColor="Black"/>
+                <Label Text="Auto-solve:"
+                       FontSize="16"
+                       TextColor="Black"
+                       VerticalOptions="Center"/>
                 <Switch IsToggled="false"
                     x:Name="solverSwitch"
                     Toggled="OnSolverSwitchClicked"
@@ -42,7 +46,8 @@
             <Label 
                 Text="Move count: 0"
                 Grid.Row="3"
-                FontSize="18"
+                TextColor="Black"
+                FontSize="16"
                 x:Name="moveCountLabel"
                 HorizontalOptions="Center" />
 
@@ -59,40 +64,44 @@
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="0"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button00"/>
                     <Button
                         Text="2"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="1"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button01"/>
                     <Button
                         Text="3"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="2"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button02"/>
                     <Button
                         Text="4"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="0"
                         Grid.Column="3"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button03"/>
                 
                     <!-- Second row of buttons. -->
@@ -101,40 +110,44 @@
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="0"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button10"/>
                     <Button
                         Text="6"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="1"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button11"/>
                     <Button
                         Text="7"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="2"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button12"/>
                     <Button
                         Text="8"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="1"
                         Grid.Column="3"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button13"/>
 
                     <!-- Third row of buttons. -->
@@ -143,40 +156,44 @@
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="0"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button20"/>
                     <Button
                         Text="10"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="1"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button21"/>
                     <Button
                         Text="11"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="2"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button22"/>
                     <Button
                         Text="12"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="2"
                         Grid.Column="3"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button23"/>
 
                     <!-- Fourth row of buttons. -->
@@ -185,40 +202,44 @@
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="0"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button30"/>
                     <Button
                         Text="14"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="1"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button31"/>
                     <Button
                         Text="15"
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="2"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button32"/>
                     <Button
                         Text=""
                         Clicked="OnPuzzleButtonClicked"
                         Grid.Row="3"
                         Grid.Column="3"
-                        FontSize="14"
+                        FontSize="16"
                         HorizontalOptions="Center"
                         WidthRequest="50"
                         HeightRequest="50"
+                        BackgroundColor="Blue"
                         x:Name="Button33"/>
                 </Grid>
             </Border>
@@ -227,6 +248,7 @@
                 Clicked="OnOptionsButtonClicked"
                 Grid.Row="5"
                 FontSize="14"
+                BackgroundColor="Blue"
                 HorizontalOptions="Center"/>
         </Grid>
     </ScrollView>

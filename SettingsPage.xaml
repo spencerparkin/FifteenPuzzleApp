@@ -5,14 +5,13 @@
              xmlns:local="clr-namespace:FifteenPuzzle"
              BackgroundColor="White">
 	<ContentPage.Content>
-		<StackLayout>
-            <Button Grid.Row="0"
-                    Text="Go back..."
-                    Clicked="OnBackButtonClicked"/>
+        <StackLayout>
             <Label Text="15 Puzzle Options"
 			       HorizontalOptions="Center"
 			       TextColor="Black"
 			       VerticalOptions="CenterAndExpand"/>
+            <Button Text="Go back..."
+                    Clicked="OnBackButtonClicked"/>
         </StackLayout>
 	</ContentPage.Content>
 </ContentPage>
