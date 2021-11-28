@@ -245,9 +245,15 @@ namespace FifteenPuzzle
 
                 if(puzzleMatrix[3, 2].value != 13)
                 {
-                    Location thirteenLocation;
-                    this.LocateElement(puzzleMatrix, 13, out thirteenLocation);
-                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, thirteenLocation, new Location(3, 2));
+                    // Special case: We won't be able to make a path in the following case, but it is a trivial case.
+                    if (puzzleMatrix[3, 1].value == 13 && puzzleMatrix[3, 0].value == 0)
+                        this.moveList.Add(new Location(3, 1));
+                    else
+                    {
+                        Location thirteenLocation;
+                        this.LocateElement(puzzleMatrix, 13, out thirteenLocation);
+                        this.PrepOrMoveTileCloserToTarget(puzzleMatrix, thirteenLocation, new Location(3, 2));
+                    }
                 }
                 else if(puzzleMatrix[2, 1].value != 0)
                 {
@@ -289,9 +295,15 @@ namespace FifteenPuzzle
 
                 if(puzzleMatrix[3, 3].value != 14)
                 {
-                    Location fourteenLocation;
-                    this.LocateElement(puzzleMatrix, 14, out fourteenLocation);
-                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fourteenLocation, new Location(3, 3));
+                    // Special case: We won't be able to make a path in the following case, but it is a trivial case.
+                    if(puzzleMatrix[3, 2].value == 14 && puzzleMatrix[3, 1].value == 0)
+                        this.moveList.Add(new Location(3, 2));
+                    else
+                    {
+                        Location fourteenLocation;
+                        this.LocateElement(puzzleMatrix, 14, out fourteenLocation);
+                        this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fourteenLocation, new Location(3, 3));
+                    }
                 }
                 else if(puzzleMatrix[2, 2].value != 0)
                 {
