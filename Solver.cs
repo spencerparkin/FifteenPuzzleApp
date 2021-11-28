@@ -175,6 +175,62 @@ namespace FifteenPuzzle
                     this.moveList.Add(new Location(1, 0));
                 }
             }
+            else if(puzzleMatrix[1, 0].value != 5)
+            {
+                this.MarkUnsolved(puzzleMatrix, 6, 15);
+                Location fiveLocation;
+                this.LocateElement(puzzleMatrix, 5, out fiveLocation);
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fiveLocation, new Location(1, 0));
+            }
+            else if(puzzleMatrix[1, 1].value != 6)
+            {
+                this.MarkUnsolved(puzzleMatrix, 7, 15);
+                Location sixLocation;
+                this.LocateElement(puzzleMatrix, 6, out sixLocation);
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, sixLocation, new Location(1, 1));
+            }
+            else if(puzzleMatrix[1, 2].value != 7)
+            {
+                this.MarkUnsolved(puzzleMatrix, 8, 15);
+                Location sevenLocation;
+                this.LocateElement(puzzleMatrix, 7, out sevenLocation);
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, sevenLocation, new Location(1, 2));
+            }
+            else if(puzzleMatrix[1, 3].value != 8)
+            {
+                this.MarkUnsolved(puzzleMatrix, 9, 15);
+
+                if (puzzleMatrix[2, 2].value != 8)
+                {
+                    Location eightLocation;
+                    this.LocateElement(puzzleMatrix, 8, out eightLocation);
+                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, eightLocation, new Location(2, 2));
+                }
+                else if (puzzleMatrix[2, 0].value != 0)
+                {
+                    Location zeroLocation;
+                    this.LocateElement(puzzleMatrix, 0, out zeroLocation);
+                    this.FindPath(puzzleMatrix, zeroLocation, new Location(2, 0), new Location(2, 2));
+                }
+                else
+                {
+                    // Move string of 5-6-7-8 left.
+                    this.moveList.Add(new Location(1, 0));
+                    this.moveList.Add(new Location(1, 1));
+                    this.moveList.Add(new Location(1, 2));
+                    this.moveList.Add(new Location(2, 2));
+
+                    // Make room for the 8.
+                    this.moveList.Add(new Location(2, 3));
+                    this.moveList.Add(new Location(1, 3));
+
+                    // Move string of 5-6-7-8 into place.
+                    this.moveList.Add(new Location(1, 2));
+                    this.moveList.Add(new Location(1, 1));
+                    this.moveList.Add(new Location(1, 0));
+                    this.moveList.Add(new Location(2, 0));
+                }
+            }
         }
 
         private bool FindPath(Element[,] puzzleMatrix, Location sourceLocation, Location destinationLocation, Location doNotDisturbLocation)

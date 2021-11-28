@@ -45,7 +45,7 @@ namespace FifteenPuzzle
 			this.buttonMatrix[3, 2] = this.Button32;
 			this.buttonMatrix[3, 3] = this.Button33;
 
-			Device.StartTimer(TimeSpan.FromSeconds(1.0), () => {
+			Device.StartTimer(TimeSpan.FromSeconds(0.5), () => {
 				if(this.solver != null)
 					this.solver.Run(this);
 				return true;
