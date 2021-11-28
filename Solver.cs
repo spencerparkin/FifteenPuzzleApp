@@ -146,9 +146,15 @@ namespace FifteenPuzzle
 
                 if(puzzleMatrix[1, 2].value != 4)
                 {
-                    Location fourLocation;
-                    this.LocateElement(puzzleMatrix, 4, out fourLocation);
-                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fourLocation, new Location(1, 2));
+                    // Special case: We won't be able to make a path in the following case, but it is a trivial case.
+                    if(puzzleMatrix[1, 3].value == 4 && puzzleMatrix[0, 3].value == 0)
+                        this.moveList.Add(new Location(1, 3));
+                    else
+                    {
+                        Location fourLocation;
+                        this.LocateElement(puzzleMatrix, 4, out fourLocation);
+                        this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fourLocation, new Location(1, 2));
+                    }
                 }
                 else if(puzzleMatrix[1, 0].value != 0)
                 {
@@ -202,9 +208,15 @@ namespace FifteenPuzzle
 
                 if (puzzleMatrix[2, 2].value != 8)
                 {
-                    Location eightLocation;
-                    this.LocateElement(puzzleMatrix, 8, out eightLocation);
-                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, eightLocation, new Location(2, 2));
+                    // Special case: We won't be able to make a path in the following case, but it is a trivial case.
+                    if (puzzleMatrix[2, 3].value == 8 && puzzleMatrix[1, 3].value == 0)
+                        this.moveList.Add(new Location(2, 3));
+                    else
+                    {
+                        Location eightLocation;
+                        this.LocateElement(puzzleMatrix, 8, out eightLocation);
+                        this.PrepOrMoveTileCloserToTarget(puzzleMatrix, eightLocation, new Location(2, 2));
+                    }
                 }
                 else if (puzzleMatrix[2, 0].value != 0)
                 {
