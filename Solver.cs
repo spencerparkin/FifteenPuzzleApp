@@ -79,6 +79,42 @@ namespace FifteenPuzzle
                         puzzleMatrix[i, j].solved = false;
         }
 
+        private void PrepOrMoveTileCloserToTarget(Element[,] puzzleMatrix, Location tileLocation, Location ultimateLocation)
+        {
+            this.moveList.Clear();
+
+            Location zeroLocation;
+            this.LocateElement(puzzleMatrix, 0, out zeroLocation);
+
+            List<Func<Location, Location, bool>> comparisonList = new List<Func<Location, Location, bool>>();
+            comparisonList.Add((locationA, locationB) => { return locationA.row < locationB.row; });
+            comparisonList.Add((locationA, locationB) => { return locationA.row > locationB.row; });
+            comparisonList.Add((locationA, locationB) => { return locationA.col < locationB.col; });
+            comparisonList.Add((locationA, locationB) => { return locationA.col > locationB.col; });
+
+            List<Location> locationDeltaList = new List<Location>();
+            locationDeltaList.Add(new Location(1, 0));
+            locationDeltaList.Add(new Location(-1, 0));
+            locationDeltaList.Add(new Location(0, 1));
+            locationDeltaList.Add(new Location(0, -1));
+
+            for(int i = 0; i < 4; i++)
+            {
+                if(comparisonList[i](tileLocation, ultimateLocation))
+                {
+                    Location deltaLocation = locationDeltaList[i];
+                    Location targetLocation = new Location(tileLocation.row + deltaLocation.row, tileLocation.col + deltaLocation.col);
+                    if (zeroLocation.row == targetLocation.row && zeroLocation.col == targetLocation.col)
+                        this.moveList.Add(tileLocation);     // Move tile closer to the ultimate location.
+                    else
+                        this.FindPath(puzzleMatrix, zeroLocation, targetLocation, tileLocation);
+
+                    if (this.moveList.Count > 0)
+                        break;
+                }
+            }
+        }
+
         private void GenerateMoveSequence(Element[,] puzzleMatrix)
         {
             this.moveList.Clear();
@@ -86,68 +122,62 @@ namespace FifteenPuzzle
             if(puzzleMatrix[0, 0].value != 1)
             {
                 this.MarkUnsolved(puzzleMatrix, 2, 15);
-
                 Location oneLocation;
                 this.LocateElement(puzzleMatrix, 1, out oneLocation);
-
-                Location zeroLocation;
-                this.LocateElement(puzzleMatrix, 0, out zeroLocation);
-
-                if(oneLocation.row > 0)
-                {
-                    Location targetLocation = new Location(oneLocation.row - 1, oneLocation.col);
-                    if(zeroLocation.row == targetLocation.row && zeroLocation.col == targetLocation.col)
-                        this.moveList.Add(oneLocation);     // Move one tile closer to the solved location.
-                    else
-                        this.FindPath(puzzleMatrix, zeroLocation, targetLocation, oneLocation);
-                }
-                else if(oneLocation.col > 0)
-                {
-                    Location targetLocation = new Location(oneLocation.row, oneLocation.col - 1);
-                    if(zeroLocation.row == targetLocation.row && zeroLocation.col == targetLocation.col)
-                        this.moveList.Add(oneLocation);     // Move one tile closer to the solved location.
-                    else
-                        this.FindPath(puzzleMatrix, zeroLocation, targetLocation, oneLocation);
-                }
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, oneLocation, new Location(0, 0));
             }
             else if(puzzleMatrix[0, 1].value != 2)
             {
                 this.MarkUnsolved(puzzleMatrix, 3, 15);
-
                 Location twoLocation;
                 this.LocateElement(puzzleMatrix, 2, out twoLocation);
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, twoLocation, new Location(0, 1));
+            }
+            else if (puzzleMatrix[0, 2].value != 3)
+            {
+                this.MarkUnsolved(puzzleMatrix, 4, 15);
+                Location threeLocation;
+                this.LocateElement(puzzleMatrix, 3, out threeLocation);
+                this.PrepOrMoveTileCloserToTarget(puzzleMatrix, threeLocation, new Location(0, 2));
+            }
+            else if (puzzleMatrix[0, 3].value != 4)
+            {
+                this.MarkUnsolved(puzzleMatrix, 5, 15);
 
-                Location zeroLocation;
-                this.LocateElement(puzzleMatrix, 0, out zeroLocation);
+                if(puzzleMatrix[1, 2].value != 4)
+                {
+                    Location fourLocation;
+                    this.LocateElement(puzzleMatrix, 4, out fourLocation);
+                    this.PrepOrMoveTileCloserToTarget(puzzleMatrix, fourLocation, new Location(1, 2));
+                }
+                else if(puzzleMatrix[1, 0].value != 0)
+                {
+                    Location zeroLocation;
+                    this.LocateElement(puzzleMatrix, 0, out zeroLocation);
+                    this.FindPath(puzzleMatrix, zeroLocation, new Location(1, 0), new Location(1, 2));
+                }
+                else
+                {
+                    // Move string of 1-2-3-4 left.
+                    this.moveList.Add(new Location(0, 0));
+                    this.moveList.Add(new Location(0, 1));
+                    this.moveList.Add(new Location(0, 2));
+                    this.moveList.Add(new Location(1, 2));
 
-                if (twoLocation.row > 0)
-                {
-                    Location targetLocation = new Location(twoLocation.row - 1, twoLocation.col);
-                    if (zeroLocation.row == targetLocation.row && zeroLocation.col == targetLocation.col)
-                        this.moveList.Add(twoLocation);     // Move one tile closer to the solved location.
-                    else
-                        this.FindPath(puzzleMatrix, zeroLocation, targetLocation, twoLocation);
-                }
-                else if(twoLocation.col > 1)
-                {
-                    Location targetLocation = new Location(twoLocation.row, twoLocation.col - 1);
-                    if (zeroLocation.row == targetLocation.row && zeroLocation.col == targetLocation.col)
-                        this.moveList.Add(twoLocation);     // Move one tile closer to the solved location.
-                    else
-                        this.FindPath(puzzleMatrix, zeroLocation, targetLocation, twoLocation);
-                }
-                else if(twoLocation.col < 1)
-                {
-                    Location targetLocation = new Location(twoLocation.row, twoLocation.col + 1);
-                    if (zeroLocation.row == targetLocation.row && zeroLocation.col == targetLocation.col)
-                        this.moveList.Add(twoLocation);     // Move one tile closer to the solved location.
-                    else
-                        this.FindPath(puzzleMatrix, zeroLocation, targetLocation, twoLocation);
+                    // Make room for the 4.
+                    this.moveList.Add(new Location(1, 3));
+                    this.moveList.Add(new Location(0, 3));
+
+                    // Move string of 1-2-3-4 into place.
+                    this.moveList.Add(new Location(0, 2));
+                    this.moveList.Add(new Location(0, 1));
+                    this.moveList.Add(new Location(0, 0));
+                    this.moveList.Add(new Location(1, 0));
                 }
             }
         }
 
-        private void FindPath(Element[,] puzzleMatrix, Location sourceLocation, Location destinationLocation, Location doNotDisturbLocation)
+        private bool FindPath(Element[,] puzzleMatrix, Location sourceLocation, Location destinationLocation, Location doNotDisturbLocation)
         {
             for(int i = 0; i < 4; i++)
                 for(int j = 0; j < 4; j++)
@@ -161,6 +191,8 @@ namespace FifteenPuzzle
             this.FindPathRecursive(puzzleMatrix, sourceLocation, destinationLocation);
             if(this.moveList.Count > 0)
                 this.moveList.RemoveAt(0);
+
+            return this.moveList.Count > 0;
         }
 
         private bool FindPathRecursive(Element[,] puzzleMatrix, Location currentLocation, Location destinationLocation)
