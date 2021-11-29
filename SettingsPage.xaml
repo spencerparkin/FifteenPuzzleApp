@@ -4,50 +4,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:FifteenPuzzle"
              BackgroundColor="LightSkyBlue">
-    <ScrollView>
-        <!-- TODO: Fix this layout.  It sucks.  -->
-        <FlexLayout Direction="Column"
-                    AlignItems="Center"
-                    JustifyContent="SpaceEvently">
-            <Label Text="15 Puzzle Options"
-                   FontSize="30"
-                   Margin="0,0,0,0"
-			       HorizontalOptions="Center"
-			       TextColor="Black"
-			       VerticalOptions="CenterAndExpand"/>
-            <StackLayout Orientation="Vertical"
-                         HorizontalOptions="Center"
-                         VerticalOptions="CenterAndExpand">
-                <StackLayout Orientation="Horizontal"
-                             Spacing="5"
-                             HorizontalOptions="Center">
-                    <Label Text="Play Fart FX:"
-                               FontSize="16"
-                               TextColor="Black"
-                               VerticalOptions="Center"/>
-                    <Switch x:Name="playFartFXSwitch"
-                            ThumbColor="Black"
-                            OnColor="Green"
-                            IsToggled="{Binding PlayFartFX}"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal"
-                             Spacing="5"
-                             HorizontalOptions="Center">
-                    <Label Text="Tile Highlights:"
-                               FontSize="16"
-                               TextColor="Black"
-                               VerticalOptions="Center"/>
-                    <Switch x:Name="highlightSolvedTilesSwitch"
-                            ThumbColor="Black"
-                            OnColor="Green"
-                            IsToggled="{Binding HighlightTiles}"/>
-                </StackLayout>
-            </StackLayout>
-            <Button Text="Go back..."
-                    Margin="0,0,0,0"
-                    Clicked="OnBackButtonClicked"
-                    HorizontalOptions="CenterAndExpand"
-                    BackgroundColor="Blue"/>
-        </FlexLayout>
-	</ScrollView>
+    
+    <!-- TODO: Fix this layout.  It sucks.  -->
+    <FlexLayout Direction="Column"
+                AlignItems="Center"
+                JustifyContent="SpaceEvently"
+                Margin="0,20,0,20">
+        <Label Text="15 Puzzle Options"
+                FontSize="30"
+                Margin="0,0,0,40"
+                HorizontalOptions="Center"
+                TextColor="Black"
+                VerticalOptions="CenterAndExpand"/>
+        <Label Text="Play Fart FX:"
+                FontSize="16"
+                TextColor="Black"
+                VerticalOptions="Center"/>
+        <Switch x:Name="playFartFXSwitch"
+                ThumbColor="Black"
+                OnColor="Green"
+                IsToggled="{Binding PlayFartFX}"/>
+        <Label Text="Tile Highlights:"
+                FontSize="16"
+                TextColor="Black"
+                VerticalOptions="Center"/>
+        <Switch x:Name="highlightSolvedTilesSwitch"
+                ThumbColor="Black"
+                OnColor="Green"
+                IsToggled="{Binding HighlightTiles}"/>
+        <Label Text="Auto-Solve Speed:"
+                FontSize="16"
+                TextColor="Black"
+                VerticalOptions="Center"/>
+        <Slider x:Name="autoSolveSpeedSlider"
+                Minimum="0"
+                Maximum="100"
+                WidthRequest="200"
+                Value="{Binding AutoSolveSpeed}"/>
+        <Button Text="Go back..."
+                Margin="0,40,0,0"
+                Clicked="OnBackButtonClicked"
+                HorizontalOptions="CenterAndExpand"
+                BackgroundColor="Blue"/>
+    </FlexLayout>
 </ContentPage>

@@ -3,11 +3,28 @@ using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Essentials;
 using Plugin.SimpleAudioPlayer;
 
 namespace FifteenPuzzle
 {
+	public class MainPageViewModel
+	{
+		private MainPage mainPage;
+
+		public MainPageViewModel(MainPage givenMainPage)
+		{
+			this.mainPage = givenMainPage;
+		}
+
+		public bool AutoSolveEnabled
+		{
+			get { return this.mainPage.IsAutoSolving(); }
+			set { this.mainPage.SetAutoSolving(value); }
+		}
+	}
+
 	public partial class MainPage : ContentPage
 	{
 		private int moveCount = 0;
@@ -16,6 +33,29 @@ namespace FifteenPuzzle
 		private Solver solver = null;
 		private List<ISimpleAudioPlayer> playerList = new List<ISimpleAudioPlayer>();
 		private Settings settings = new Settings();
+
+		public bool IsAutoSolving()
+		{
+			return this.solver != null;
+		}
+
+		public void SetAutoSolving(bool autoSolving)
+		{
+			if(autoSolving)
+			{
+				if(this.solver == null)
+					this.solver = new Solver();
+			}
+			else
+				this.solver = null;
+
+			this.scrambleButton.IsEnabled = (this.solver == null);
+			this.resetButton.IsEnabled = (this.solver == null);
+			this.optionsButton.IsEnabled = (this.solver == null);
+			this.scrambleButton.BackgroundColor = (this.solver == null) ? Color.FromRgb(0, 0, 255) : Color.FromRgb(128, 128, 128);
+			this.resetButton.BackgroundColor = (this.solver == null) ? Color.FromRgb(0, 0, 255) : Color.FromRgb(128, 128, 128);
+			this.optionsButton.BackgroundColor = (this.solver == null) ? Color.FromRgb(0, 0, 255) : Color.FromRgb(128, 128, 128);
+		}
 
 		public int GetPuzzleValue(int row, int col)
 		{
@@ -31,7 +71,9 @@ namespace FifteenPuzzle
 
 			InitializeComponent();
 
-			this.random = new Random(0); //DateTime.Now.Second * DateTime.Now.Day);
+			this.BindingContext = new MainPageViewModel(this);
+
+			this.random = new Random(DateTime.Now.Second * DateTime.Now.Day);
 
 			this.buttonMatrix[0, 0] = this.Button00;
 			this.buttonMatrix[0, 1] = this.Button01;
@@ -54,9 +96,8 @@ namespace FifteenPuzzle
 			this.buttonMatrix[3, 3] = this.Button33;
 
 			Device.StartTimer(TimeSpan.FromSeconds(0.5), () => {
-				if(this.solver != null)
-					this.solver.Run(this);
-				return true;
+				this.OnTimerTick();
+				return false;
 			});
 
 			var assembly = Assembly.GetExecutingAssembly();
@@ -70,6 +111,30 @@ namespace FifteenPuzzle
 						this.playerList.Add(player);
 				}
 			}
+		}
+
+		private void OnTimerTick()
+		{
+			if (this.solver != null)
+			{
+				if(!this.solver.Run(this))
+				{
+					// The solver finished.  Shut-off the solver switch.
+					// Note that setting this property does trigger the binding,
+					// which is what we want, but the toggle switch UI visual doesn't
+					// animate back to its correct state.  Why?
+					this.solverSwitch.IsToggled = false;
+				}
+			}
+
+			float lerpAlpha = this.settings.autoSolveSpeed / 100.0f;
+			double slowestTickFrequency = 2.0f;
+			double fastestTickFrequency = 0.1f;
+			double tickFrequency = slowestTickFrequency + lerpAlpha * (fastestTickFrequency - slowestTickFrequency);
+			Device.StartTimer(TimeSpan.FromSeconds(tickFrequency), () => {
+				this.OnTimerTick();
+				return false;
+			});
 		}
 
         private async void OnOptionsButtonClicked(object sender, EventArgs e)
@@ -211,17 +276,6 @@ namespace FifteenPuzzle
 			
 			this.moveCount = 0;
 			this.UpdateLabels();
-		}
-
-		private void OnSolverSwitchClicked(object sender, EventArgs e)
-		{
-			if(this.solverSwitch.IsToggled)
-				this.solver = new Solver();
-			else
-				this.solver = null;
-
-			this.scrambleButton.IsEnabled = (this.solver == null);
-			this.resetButton.IsEnabled = (this.solver == null);
 		}
 	}
 }

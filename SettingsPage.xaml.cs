@@ -21,17 +21,20 @@ namespace FifteenPuzzle
 
         public bool PlayFartFX
         {
-            get => this.settings.makeFartSounds;
-            set
-            {
-                this.settings.makeFartSounds = value;
-            }
+            get { return this.settings.makeFartSounds; }
+            set { this.settings.makeFartSounds = value; }
         }
 
         public bool HighlightTiles
         {
             get { return settings.highlightSolvedTiles; }
             set { this.settings.highlightSolvedTiles = value; }
+        }
+
+        public float AutoSolveSpeed
+        {
+            get { return settings.autoSolveSpeed; }
+            set { this.settings.autoSolveSpeed = value; }
         }
     }
 

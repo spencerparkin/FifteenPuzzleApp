@@ -37,9 +37,9 @@
                        FontSize="16"
                        TextColor="Black"
                        VerticalOptions="Center"/>
-                <Switch IsToggled="false"
+                <Switch
                     x:Name="solverSwitch"
-                    Toggled="OnSolverSwitchClicked"
+                    IsToggled="{Binding AutoSolveEnabled}"
                     ThumbColor="Black"
                     OnColor="Green"/>
             </StackLayout>
@@ -243,6 +243,7 @@
                 </Grid>
             </Border>
             <Button
+                x:Name="optionsButton"
                 Text="Options..."
                 Clicked="OnOptionsButtonClicked"
                 Grid.Row="5"
