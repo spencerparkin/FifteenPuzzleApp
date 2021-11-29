@@ -72,18 +72,10 @@ namespace FifteenPuzzle
 			}
 		}
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-
-			this.settings.Save();
-		}
-
         private async void OnOptionsButtonClicked(object sender, EventArgs e)
 		{
 			SettingsPage settingsPage = new SettingsPage(this.settings);
-			var task = this.Navigation.PushModalAsync(settingsPage);
-			await task;
+			await this.Navigation.PushModalAsync(settingsPage);
 		}
 
 		private void OnScrambleButtonClicked(object sender, EventArgs e)

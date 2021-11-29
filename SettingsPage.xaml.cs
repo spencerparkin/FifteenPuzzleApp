@@ -47,8 +47,15 @@ namespace FifteenPuzzle
 
         async void OnBackButtonClicked(Object sender, EventArgs e)
         {
-            var task = this.Navigation.PopModalAsync();
-            await task;
+            await this.Navigation.PopModalAsync();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            if(this.BindingContext is SettingsViewModel viewModel)
+                viewModel.settings.Save();
         }
     }
 }

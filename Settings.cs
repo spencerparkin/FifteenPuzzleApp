@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maui.Essentials;
 
 namespace FifteenPuzzle
 {
@@ -11,14 +12,16 @@ namespace FifteenPuzzle
         public bool makeFartSounds = false;
         public bool highlightSolvedTiles = false;
 
-        public void Load()
-        {
-            // TODO: Load from disk.
-        }
-
         public void Save()
         {
-            // TODO: Save to disk.
+            Preferences.Set("makeFartSounds", this.makeFartSounds);
+            Preferences.Set("highlightSolvedTiles", this.highlightSolvedTiles);
+        }
+
+        public void Load()
+        {
+            this.makeFartSounds = Preferences.Get("makeFartSounds", false);
+            this.highlightSolvedTiles = Preferences.Get("highlightSolvedTiles", this.highlightSolvedTiles);
         }
     }
 }
