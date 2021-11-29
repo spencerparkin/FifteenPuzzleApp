@@ -4,7 +4,7 @@
              BackgroundColor="{DynamicResource SecondaryColor}">
 
     <ScrollView>
-        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
               Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
             <Label Text="Fifteen Puzzle"
                     Grid.Row="0"
@@ -250,6 +250,12 @@
                 FontSize="14"
                 BackgroundColor="Blue"
                 HorizontalOptions="Center"/>
+            <Label Text="Solved!"
+                   Grid.Row="6"
+                   x:Name="percentSolvedLabel"
+                   TextColor="Black"
+                   FontSize="32"
+                   HorizontalOptions="Center"/>
         </Grid>
     </ScrollView>
 </ContentPage>

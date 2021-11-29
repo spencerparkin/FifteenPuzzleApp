@@ -1,6 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Collections.Generic;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
+using Plugin.SimpleAudioPlayer;
 
 namespace FifteenPuzzle
 {
@@ -10,6 +14,8 @@ namespace FifteenPuzzle
 		private Button[,] buttonMatrix = new Button[4, 4];
 		private Random random = null;
 		private Solver solver = null;
+		private List<ISimpleAudioPlayer> playerList = new List<ISimpleAudioPlayer>();
+		private Settings settings = new Settings();
 
 		public int GetPuzzleValue(int row, int col)
 		{
@@ -50,12 +56,18 @@ namespace FifteenPuzzle
 					this.solver.Run(this);
 				return true;
 			});
-		}
 
-		private void UpdateMoveCount(int newMoveCount)
-		{
-			this.moveCount = newMoveCount;
-			this.moveCountLabel.Text = $"Move count: {this.moveCount}";
+			var assembly = Assembly.GetExecutingAssembly();
+			foreach(string resourceName in assembly.GetManifestResourceNames())
+			{
+				if(resourceName.Contains("Fart"))
+				{
+					Stream stream = assembly.GetManifestResourceStream(resourceName);
+					var player = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
+					if (player.Load(stream))
+						this.playerList.Add(player);
+				}
+			}
 		}
 
 		private async void OnOptionsButtonClicked(object sender, EventArgs e)
@@ -92,7 +104,8 @@ namespace FifteenPuzzle
 				this.MakeMove(button);
 			}
 
-			this.UpdateMoveCount(0);
+			this.moveCount = 0;
+			this.UpdateLabels();
 		}
 
 		private bool FindButtonLocation(string label, out int row, out int col)
@@ -104,6 +117,26 @@ namespace FifteenPuzzle
 			row = -1;
 			col = -1;
 			return false;
+		}
+
+		public void UpdateLabels()
+		{
+			this.moveCountLabel.Text = $"Move count: {this.moveCount}";
+
+			int solveCount = 0;
+			int number = 1;
+			for(int i = 0; i < 4; i++)
+				for(int j = 0; j < 4; j++)
+					if(this.GetPuzzleValue(i, j) == number++ % 16)
+						solveCount++;
+
+			if(solveCount == 16)
+				this.percentSolvedLabel.Text = "Solved!";
+			else
+			{
+				int percent = (int)Math.Floor(((double)solveCount / 16.0) * 100.0);
+				this.percentSolvedLabel.Text = $"{percent}% solved!";
+			}
 		}
 
 		private bool MakeMove(int row, int col, int rowDelta, int colDelta)
@@ -148,8 +181,17 @@ namespace FifteenPuzzle
 			if(this.solver != null)
 				return;
 
-			if (this.MakeMove(sender as Button))
-				this.UpdateMoveCount(this.moveCount + 1);
+			if(this.MakeMove(sender as Button))
+			{
+				this.moveCount++;
+				this.UpdateLabels();
+
+				if (this.settings.makeFartSounds)
+				{
+					int i = this.random.Next(0, this.playerList.Count);
+					this.playerList[i].Play();
+				}
+			}
 		}
 
 		private void OnResetButtonClicked(object sender, EventArgs e)
@@ -161,7 +203,9 @@ namespace FifteenPuzzle
 			for(int i = 0; i < 4; i++)
 				for(int j = 0; j < 4; j++)
 					this.buttonMatrix[i, j].Text = (k == 16) ? "" : $"{k++}";
-			this.UpdateMoveCount(0);
+			
+			this.moveCount = 0;
+			this.UpdateLabels();
 		}
 
 		private void OnSolverSwitchClicked(object sender, EventArgs e)

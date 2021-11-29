@@ -49,6 +49,48 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Audio\Fart0.mp3" />
+	  <None Remove="Resources\Audio\Fart1.mp3" />
+	  <None Remove="Resources\Audio\Fart10.mp3" />
+	  <None Remove="Resources\Audio\Fart11.mp3" />
+	  <None Remove="Resources\Audio\Fart12.wav" />
+	  <None Remove="Resources\Audio\Fart13.wav" />
+	  <None Remove="Resources\Audio\Fart14.wav" />
+	  <None Remove="Resources\Audio\Fart15.wav" />
+	  <None Remove="Resources\Audio\Fart2.mp3" />
+	  <None Remove="Resources\Audio\Fart3.mp3" />
+	  <None Remove="Resources\Audio\Fart4.mp3" />
+	  <None Remove="Resources\Audio\Fart5.mp3" />
+	  <None Remove="Resources\Audio\Fart6.mp3" />
+	  <None Remove="Resources\Audio\Fart7.mp3" />
+	  <None Remove="Resources\Audio\Fart8.mp3" />
+	  <None Remove="Resources\Audio\Fart9.mp3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Audio\Fart0.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart1.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart10.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart11.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart12.wav" />
+	  <EmbeddedResource Include="Resources\Audio\Fart13.wav" />
+	  <EmbeddedResource Include="Resources\Audio\Fart14.wav" />
+	  <EmbeddedResource Include="Resources\Audio\Fart15.wav" />
+	  <EmbeddedResource Include="Resources\Audio\Fart2.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart3.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart4.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart5.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart6.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart7.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart8.mp3" />
+	  <EmbeddedResource Include="Resources\Audio\Fart9.mp3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="SettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
