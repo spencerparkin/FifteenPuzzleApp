@@ -3,15 +3,51 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:FifteenPuzzle"
-             BackgroundColor="White">
-	<ContentPage.Content>
-        <StackLayout>
+             BackgroundColor="LightSkyBlue">
+    <ScrollView>
+        <!-- TODO: Fix this layout.  It sucks.  -->
+        <FlexLayout Direction="Column"
+                    AlignItems="Center"
+                    JustifyContent="SpaceEvently">
             <Label Text="15 Puzzle Options"
+                   FontSize="30"
+                   Margin="0,0,0,0"
 			       HorizontalOptions="Center"
 			       TextColor="Black"
 			       VerticalOptions="CenterAndExpand"/>
+            <StackLayout Orientation="Vertical"
+                         HorizontalOptions="Center"
+                         VerticalOptions="CenterAndExpand">
+                <StackLayout Orientation="Horizontal"
+                             Spacing="5"
+                             HorizontalOptions="Center">
+                    <Label Text="Play Fart FX:"
+                               FontSize="16"
+                               TextColor="Black"
+                               VerticalOptions="Center"/>
+                    <Switch x:Name="playFartFXSwitch"
+                            ThumbColor="Black"
+                            OnColor="Green"
+                            IsToggled="{Binding PlayFartFX}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             Spacing="5"
+                             HorizontalOptions="Center">
+                    <Label Text="Tile Highlights:"
+                               FontSize="16"
+                               TextColor="Black"
+                               VerticalOptions="Center"/>
+                    <Switch x:Name="highlightSolvedTilesSwitch"
+                            ThumbColor="Black"
+                            OnColor="Green"
+                            IsToggled="{Binding HighlightTiles}"/>
+                </StackLayout>
+            </StackLayout>
             <Button Text="Go back..."
-                    Clicked="OnBackButtonClicked"/>
-        </StackLayout>
-	</ContentPage.Content>
+                    Margin="0,0,0,0"
+                    Clicked="OnBackButtonClicked"
+                    HorizontalOptions="CenterAndExpand"
+                    BackgroundColor="Blue"/>
+        </FlexLayout>
+	</ScrollView>
 </ContentPage>

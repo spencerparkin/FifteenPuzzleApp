@@ -59,6 +59,7 @@ namespace FifteenPuzzle
             moveList.RemoveAt(0);
             mainPage.MakeMove(move.row, move.col);
             mainPage.UpdateLabels();
+            mainPage.PlaySoundFXIfEnabled();
             return true;
         }
 

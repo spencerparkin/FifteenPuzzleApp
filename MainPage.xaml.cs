@@ -27,6 +27,8 @@ namespace FifteenPuzzle
 
 		public MainPage()
 		{
+			this.settings.Load();
+
 			InitializeComponent();
 
 			this.random = new Random(0); //DateTime.Now.Second * DateTime.Now.Day);
@@ -70,9 +72,16 @@ namespace FifteenPuzzle
 			}
 		}
 
-		private async void OnOptionsButtonClicked(object sender, EventArgs e)
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+			this.settings.Save();
+		}
+
+        private async void OnOptionsButtonClicked(object sender, EventArgs e)
 		{
-			SettingsPage settingsPage = new SettingsPage();
+			SettingsPage settingsPage = new SettingsPage(this.settings);
 			var task = this.Navigation.PushModalAsync(settingsPage);
 			await task;
 		}
@@ -185,12 +194,16 @@ namespace FifteenPuzzle
 			{
 				this.moveCount++;
 				this.UpdateLabels();
+				this.PlaySoundFXIfEnabled();
+			}
+		}
 
-				if (this.settings.makeFartSounds)
-				{
-					int i = this.random.Next(0, this.playerList.Count);
-					this.playerList[i].Play();
-				}
+		public void PlaySoundFXIfEnabled()
+		{
+			if (this.settings.makeFartSounds)
+			{
+				int i = this.random.Next(0, this.playerList.Count);
+				this.playerList[i].Play();
 			}
 		}
 
