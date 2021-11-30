@@ -107,7 +107,7 @@ namespace FifteenPuzzle
 				{
 					Stream stream = assembly.GetManifestResourceStream(resourceName);
 					var player = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
-					if (player.Load(stream))
+					if (player != null && player.Load(stream))
 						this.playerList.Add(player);
 				}
 			}
