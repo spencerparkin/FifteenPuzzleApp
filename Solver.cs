@@ -365,77 +365,57 @@ namespace FifteenPuzzle
 
             puzzleMatrix[doNotDisturbLocation.row, doNotDisturbLocation.col].solved = true;
 
-            // TODO: Note that this does not necessarily find the shortest path.
-            //       It may be worth revisiting this code so that it finds the shortest path.
-            //       In fact, it must be revisited, because it's an obvious innefficiency.
             this.moveList.Clear();
-            this.FindPathRecursive(puzzleMatrix, sourceLocation, destinationLocation);
+            List<Location> currentPath = new List<Location>();
+            this.FindPathRecursive(puzzleMatrix, sourceLocation, destinationLocation, currentPath);
             if(this.moveList.Count > 0)
                 this.moveList.RemoveAt(0);
 
             return this.moveList.Count > 0;
         }
 
-        private bool FindPathRecursive(Element[,] puzzleMatrix, Location currentLocation, Location destinationLocation)
+        private void FindPathRecursive(Element[,] puzzleMatrix, Location currentLocation, Location destinationLocation, List<Location> currentPath)
         {
             puzzleMatrix[currentLocation.row, currentLocation.col].visited = true;
+            currentPath.Add(currentLocation);
 
-            if(currentLocation.row == destinationLocation.row && currentLocation.col == destinationLocation.col)
+            if (currentLocation.row == destinationLocation.row && currentLocation.col == destinationLocation.col)
             {
-                this.moveList.Add(currentLocation);
-                return true;
-            }
-
-            if(currentLocation.row > 0 &&
-                !puzzleMatrix[currentLocation.row - 1, currentLocation.col].solved &&
-                !puzzleMatrix[currentLocation.row - 1, currentLocation.col].visited)
-            {
-                Location nextLocation = new Location(currentLocation.row - 1, currentLocation.col);
-                if(this.FindPathRecursive(puzzleMatrix, nextLocation, destinationLocation))
+                if(this.moveList.Count == 0 || this.moveList.Count > currentPath.Count)
                 {
-                    this.moveList.Insert(0, currentLocation);
-                    return true;
+                    this.moveList.Clear();
+                    for(int i = 0; i < currentPath.Count; i++)
+                        this.moveList.Add(new Location(currentPath[i].row, currentPath[i].col));
+                }
+            }
+            else
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    Location nextLocation = new Location(0, 0);
+                    switch(i)
+                    {
+                        case 0: nextLocation = new Location(currentLocation.row - 1, currentLocation.col); break;
+                        case 1: nextLocation = new Location(currentLocation.row + 1, currentLocation.col); break;
+                        case 2: nextLocation = new Location(currentLocation.row, currentLocation.col - 1); break;
+                        case 3: nextLocation = new Location(currentLocation.row, currentLocation.col + 1); break;
+                    }
+
+                    if(nextLocation.row < 0 || nextLocation.row > 3 || nextLocation.col < 0 || nextLocation.col > 3)
+                        continue;
+
+                    if(puzzleMatrix[nextLocation.row, nextLocation.col].solved ||
+                        puzzleMatrix[nextLocation.row, nextLocation.col].visited)
+                    {
+                        continue;
+                    }
+
+                    this.FindPathRecursive(puzzleMatrix, nextLocation, destinationLocation, currentPath);
                 }
             }
 
-            if(currentLocation.row < 3 &&
-                !puzzleMatrix[currentLocation.row + 1, currentLocation.col].solved &&
-                !puzzleMatrix[currentLocation.row + 1, currentLocation.col].visited)
-            {
-                Location nextLocation = new Location(currentLocation.row + 1, currentLocation.col);
-                if (this.FindPathRecursive(puzzleMatrix, nextLocation, destinationLocation))
-                {
-                    this.moveList.Insert(0, currentLocation);
-                    return true;
-                }
-            }
-
-            if (currentLocation.col > 0 &&
-                !puzzleMatrix[currentLocation.row, currentLocation.col - 1].solved &&
-                !puzzleMatrix[currentLocation.row, currentLocation.col - 1].visited)
-            {
-                Location nextLocation = new Location(currentLocation.row, currentLocation.col - 1);
-                if (this.FindPathRecursive(puzzleMatrix, nextLocation, destinationLocation))
-                {
-                    this.moveList.Insert(0, currentLocation);
-                    return true;
-                }
-            }
-
-            if (currentLocation.col < 3 &&
-                !puzzleMatrix[currentLocation.row, currentLocation.col + 1].solved &&
-                !puzzleMatrix[currentLocation.row, currentLocation.col + 1].visited)
-            {
-                Location nextLocation = new Location(currentLocation.row, currentLocation.col + 1);
-                if (this.FindPathRecursive(puzzleMatrix, nextLocation, destinationLocation))
-                {
-                    this.moveList.Insert(0, currentLocation);
-                    return true;
-                }
-            }
-
+            currentPath.RemoveAt(currentPath.Count - 1);
             puzzleMatrix[currentLocation.row, currentLocation.col].visited = false;
-            return false;
         }
     }
 }
