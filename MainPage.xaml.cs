@@ -192,9 +192,25 @@ namespace FifteenPuzzle
 			int solveCount = 0;
 			int number = 1;
 			for(int i = 0; i < 4; i++)
+			{
 				for(int j = 0; j < 4; j++)
+				{
 					if(this.GetPuzzleValue(i, j) == number++ % 16)
+					{
 						solveCount++;
+						if(this.settings.highlightSolvedTiles)
+							this.buttonMatrix[i, j].BackgroundColor = Color.FromRgb(0, 0, 255);
+					}
+					else
+					{
+						if(this.settings.highlightSolvedTiles)
+							this.buttonMatrix[i, j].BackgroundColor = Color.FromRgb(255, 0, 0);
+					}
+
+					if(!this.settings.highlightSolvedTiles)
+						this.buttonMatrix[i, j].BackgroundColor = Color.FromRgb(0, 0, 255);
+				}
+			}
 
 			if(solveCount == 16)
 				this.percentSolvedLabel.Text = "Solved!";
