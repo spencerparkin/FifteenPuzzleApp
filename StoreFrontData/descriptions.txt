@@ -1,7 +1,0 @@
-
-
-Short desc:
-The classic 15 puzzle played on a 4x4 grid of sliding tiles.
-
-Long desc:
-Purportedly invented by Sam Loyd in 1891, this is a puzzle game falling into the general category of such as can be modeled in group theory.  Fifteen numbered tiles appear in a 4x4 grid with one space left empty.  Any numbered tile orthogonally adjacent to this empty space can be slid into it, there-by moving the position of the empty space.  Thus the numbered tiles can be scrambled, and thus the goal is to unscramble them by rearranging all tiles in order, left to right, and top to bottom.  It can be shown that the puzzle is isomorphic to the alternating group of order 16!/2, or the group of even permutations on 16 things.  What sets this app apart from the zillions of other apps by the same name is two fold.  First, a demonstration solve is available for any configuration of the puzzle.  And second, fart noises can be enabled or disabled at the user's discretion.
