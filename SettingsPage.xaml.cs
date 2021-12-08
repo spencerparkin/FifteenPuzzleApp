@@ -48,9 +48,9 @@ namespace FifteenPuzzle
             this.BindingContext = new SettingsViewModel(settings);
         }
 
-        async void OnBackButtonClicked(Object sender, EventArgs e)
+        void OnBackButtonClicked(Object sender, EventArgs e)
         {
-            await this.Navigation.PopModalAsync();
+            this.Navigation.PopModalAsync();
         }
 
         protected override void OnDisappearing()

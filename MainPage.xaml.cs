@@ -137,10 +137,10 @@ namespace FifteenPuzzle
 			});
 		}
 
-        private async void OnOptionsButtonClicked(object sender, EventArgs e)
+        private void OnOptionsButtonClicked(object sender, EventArgs e)
 		{
 			SettingsPage settingsPage = new SettingsPage(this.settings);
-			await this.Navigation.PushModalAsync(settingsPage);
+			this.Navigation.PushModalAsync(settingsPage);
 		}
 
 		private void OnScrambleButtonClicked(object sender, EventArgs e)
