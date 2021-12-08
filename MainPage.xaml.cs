@@ -27,7 +27,7 @@ namespace FifteenPuzzle
 
 	public partial class MainPage : ContentPage
 	{
-		private int moveCount = 0;
+		public int moveCount = 0;
 		private Button[,] buttonMatrix = new Button[4, 4];
 		private Random random = null;
 		private Solver solver = null;
@@ -111,6 +111,11 @@ namespace FifteenPuzzle
 						this.playerList.Add(player);
 				}
 			}
+		}
+
+		protected override void OnAppearing()
+		{
+			this.UpdateLabels();
 		}
 
 		private void OnTimerTick()

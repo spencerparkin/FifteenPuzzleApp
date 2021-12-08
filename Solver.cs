@@ -58,6 +58,7 @@ namespace FifteenPuzzle
             Location move = moveList[0];
             moveList.RemoveAt(0);
             mainPage.MakeMove(move.row, move.col);
+            mainPage.moveCount++;
             mainPage.UpdateLabels();
             mainPage.PlaySoundFXIfEnabled();
             return true;
