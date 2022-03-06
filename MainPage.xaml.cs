@@ -278,7 +278,7 @@ namespace FifteenPuzzle
 
 		public void PlaySoundFXIfEnabled()
 		{
-			if (this.settings.makeFartSounds)
+			if (this.settings.makeFartSounds && this.playerList.Count > 0)
 			{
 				int i = this.random.Next(0, this.playerList.Count);
 				this.playerList[i].Play();

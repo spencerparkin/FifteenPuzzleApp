@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="170DE8DA-B996-4D93-9AD0-08C4D98E7395"
+    Name="8FEF8FC4-3577-4D1E-8718-19E30F351DCE"
     Publisher="CN=User Name"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>FifteenPuzzle</DisplayName>
+    <DisplayName>FifteenPuzzleApp</DisplayName>
     <PublisherDisplayName>Microsoft</PublisherDisplayName>
-    <Logo>Assets\appiconStoreLogo.png</Logo>
+    <Logo>appiconStoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -31,22 +31,22 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="FifteenPuzzle"
-        Description="FifteenPuzzle"
+        DisplayName="FifteenPuzzleApp"
+        Description="FifteenPuzzleApp"
         BackgroundColor="transparent"
-        Square150x150Logo="Assets\appiconMediumTile.png"
-        Square44x44Logo="Assets\appiconLogo.png">
+        Square150x150Logo="appiconMediumTile.png"
+        Square44x44Logo="appiconLogo.png">
         <uap:DefaultTile
-          Wide310x150Logo="Assets\appiconWideTile.png"
-          Square71x71Logo="Assets\appiconSmallTile.png"
-          Square310x310Logo="Assets\appiconLargeTile.png"
-          ShortName="FifteenPuzzle">
+          Wide310x150Logo="appiconWideTile.png"
+          Square71x71Logo="appiconSmallTile.png"
+          Square310x310Logo="appiconLargeTile.png"
+          ShortName="FifteenPuzzleApp">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo"/>
             <uap:ShowOn Tile="wide310x150Logo"/>
           </uap:ShowNameOnTiles>
         </uap:DefaultTile >
-        <uap:SplashScreen Image="Assets\appiconfgSplashScreen.png" />
+        <uap:SplashScreen Image="appiconfgSplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
