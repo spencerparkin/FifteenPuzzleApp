@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace FifteenPuzzleApp;
+namespace FifteenPuzzle;
 
 [Application]
 public class MainApplication : MauiApplication
